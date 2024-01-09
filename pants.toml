@@ -5,6 +5,7 @@ pythonpath = ["%(buildroot)s/pants-plugins/protobuf"]
 backend_packages.add = [
   "pants.backend.plugin_development",
   "flare_protobuf_plugin",
+  "pants.backend.experimental.python",
   "pants.backend.python",
   "pants.backend.python.lint.black",
   "pants.backend.python.lint.flake8",

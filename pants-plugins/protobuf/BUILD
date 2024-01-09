@@ -12,4 +12,7 @@ python_distribution(
         name="flare_protobuf_plugin",
         version="0.1.0",
     ),
+    repositories=[
+      "@pypi",
+    ]
 )
