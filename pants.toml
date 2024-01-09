@@ -1,0 +1,49 @@
+# Inspired from https://github.com/tgolsson/pants-backends/blob/main/pants.toml
+[GLOBAL]
+pants_version = "2.20.0dev4"
+pythonpath = ["%(buildroot)s/pants-plugins/protobuf"]
+backend_packages.add = [
+  "pants.backend.plugin_development",
+  "flare_protobuf_plugin",
+  "pants.backend.python",
+  "pants.backend.python.lint.black",
+  "pants.backend.python.lint.flake8",
+  "pants.backend.python.lint.isort",
+  "pants.backend.python.typecheck.mypy",
+]
+
+[source]
+root_patterns = [
+  "pants-plugins",
+]
+marker_filenames = ["pyproject.toml"]
+
+[python]
+tailor_pex_binary_targets = true
+interpreter_constraints = ["==3.9.*"]
+enable_resolves = true
+default_resolve = "pants-plugins"
+
+[python.resolves]
+pants-plugins = "pants-plugins/pants.lock"
+pants-previous = "pants-plugins/previous.lock"
+pants-current = "pants-plugins/current.lock"
+pants-next = "pants-plugins/next.lock"
+
+grpclib = "pants-plugins/protobuf/flare_protobuf_plugin/grpclib.lock"
+
+flake8 = "pants/3rdparty/python/flake8.lock"
+
+[python-infer]
+use_rust_parser = true
+
+[python.resolves_to_interpreter_constraints]
+pants-plugins = ["==3.9.*"]
+pants-previous = ["==3.9.*"]
+pants-current = ["==3.9.*"]
+pants-next = ["==3.9.*"]
+
+[flake8]
+config = "pants/flake8/.flake8"
+install_from_resolve = "flake8"
+requirements = ["//pants/3rdparty/python:flake8"]
